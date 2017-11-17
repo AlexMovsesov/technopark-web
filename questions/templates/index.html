@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ block.super }} - Главная
+{% endblock %}
+{% block content %}
+<div class="row mt-2 mb-2">
+    <h3 class="align-self-center">New questions</h3>
+    <a href="hot-questions" class="text-muted ml-4 align-self-center">Hot Questions</a>
+</div>
+
+
+    {% for question in questions.object_list %}
+        <div class="row mt-2 mb-2 border-space">
+            <div class="col-2 m-3">
+            <img src="/static/img/tux.png" class="img-fluid img-thumbnail" />
+            <div class="form-group">
+             <input id="number" class="form-control" type="number" value="42">
+            </div>
+        </div>
+          <div class="col-9 m-2">
+            <div class="row">
+              <a><h3>Вопрос: {{ question.title }}</h3></a>
+            </div>
+            <div class="row">
+              <p>
+                {{ question.description }}
+              </p>
+            </div>
+             <div class="row mt-2">
+              <div class="col-3">
+                <a href="{% url 'get_question' question.pk %}"><button type="button" class="btn btn-primary" >Answers <span class="badge badge-success">{{ question.answer_set.all.count }}</span></button></a>
+              </div>
+              <div class="col-9">
+                  {% if question.tags.count > 0 %}
+                    <span>Tags:</span>
+                      {% for tag in question.tags.all %}
+                            <a href="{% url 'by_tag' tag.pk %}" class="text-{{ tag.color }}">{{ tag.title }}</a>
+                      {% endfor %}
+                  {% endif %}
+              </div>
+             </div>
+          </div>
+        </div>
+    {% endfor %}
+    <hr/>
+    {% load range %}
+    <div class="row mb-5">
+    <nav aria-label="Page navigation example">
+    <ul class="pagination">
+          {% if questions.has_previous %}
+            <li class="page-item">
+              <a class="page-link questions_page" data-page="{{ questions.previous_page_number }}" href="{% url 'page' questions.previous_page_number %}" aria-label="Предыдущий">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% endif %}
+          {% if questions.has_other_pages %}
+              {% for i in 1|range:questions.paginator.num_pages %}
+                  {% if i == questions.number %}
+                  <li class="page-item active"><a class="page-link questions_page" data-page="{{ i }}" href="{% url 'page' i %}">{{ i }}</a></li>
+                  {% else %}
+                  <li class="page-item"><a class="page-link questions_page" data-page="{{ i }}" href="{% url 'page' i %}">{{ i }}</a></li>
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+          {% if questions.has_next %}
+            <li class="page-item">
+              <a class="page-link questions_page" data-page="{{ questions.next_page_number }}" aria-label="Следующий" href="{% url 'page' questions.next_page_number %}">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% endif %}
+          </ul>
+    </nav>
+    </div>
+{% endblock %}

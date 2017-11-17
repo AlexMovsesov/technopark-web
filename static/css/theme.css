@@ -1,0 +1,13 @@
+.grey-space{
+	background-color: grey;
+}
+.dark-space{
+	background-color: #272822;
+	color: white;
+}
+.border-space{
+	border: 1px solid black;
+}
+.tags{
+	font-size:2em;
+}

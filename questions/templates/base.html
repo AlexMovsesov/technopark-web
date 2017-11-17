@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+
+    <!-- Required meta tags -->
+    <title>AskMovsesov - {% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/theme.css">
+  </head>
+  <body>
+
+    <section class="h-100">
+    <div class="container-fluid h-100 w-100">
+      <div class="row grey-space">
+        {% include 'header.html' %}
+      </div>
+      <div class="row mt-3">
+        <div class="col-8 offset-1">
+          {% block content %} {% endblock %}
+        <hr/>
+
+      </div>
+        <div class="col-2 mx-auto mt-5">
+          {% include 'tagscloud.html' %}
+      </div>
+
+      {% include 'footer.html' %}
+      </div>
+    </div>
+    </section>
+        <!--- Js scripts -->
+    <script src="/static/js/jquery-3.1.1.slim.min.js"></script>
+    <script src="/static/js/tether.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
